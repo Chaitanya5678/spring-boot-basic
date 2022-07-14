@@ -5,21 +5,22 @@ import com.askchaitanya.blackops.services.GadgetsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
-@RequestMapping("/api/v1/gadgets")
+@RequestMapping("/api/v1")
 public class GadgetsController {
 
     @Autowired
     GadgetsService gadgetsService;
 
-    @RequestMapping("/{id}")
+    @GetMapping("/gadgets/{id}")
     public ResponseEntity<Gadget> getGadgetById(@PathVariable("id") String id) {
         UUID uuid;
         try {
@@ -31,4 +32,11 @@ public class GadgetsController {
         return gadget.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @GetMapping("/gadgets")
+    public ResponseEntity<List<Gadget>> listGadgets() {
+        List<Gadget> gadgetsList = gadgetsService.listGadgets();
+        return new ResponseEntity<>(gadgetsList, HttpStatus.OK);
+    }
+
 }
