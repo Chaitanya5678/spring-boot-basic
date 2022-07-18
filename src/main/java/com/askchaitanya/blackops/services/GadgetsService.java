@@ -1,6 +1,6 @@
 package com.askchaitanya.blackops.services;
 
-import com.askchaitanya.blackops.config.DataSource;
+import com.askchaitanya.blackops.configurations.DataSource;
 import com.askchaitanya.blackops.models.Gadget;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
