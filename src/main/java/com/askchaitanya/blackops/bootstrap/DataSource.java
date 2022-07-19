@@ -1,4 +1,4 @@
-package com.askchaitanya.blackops.configurations;
+package com.askchaitanya.blackops.bootstrap;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

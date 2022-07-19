@@ -1,4 +1,4 @@
-package com.askchaitanya.blackops.configurations;
+package com.askchaitanya.blackops.bootstrap;
 
 import okhttp3.OkHttpClient;
 
