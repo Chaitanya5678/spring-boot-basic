@@ -2,13 +2,14 @@ package com.askchaitanya.blackops.bootstrap;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import okhttp3.OkHttpClient;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DataSource {
 
-    private static final HikariDataSource dataSource = getDataSource();
+    private volatile static HikariDataSource dataSource = null;
 
     // TODO: Configuration secrets to be moved into environment variables
     private static HikariDataSource getDataSource() {
@@ -26,6 +27,13 @@ public class DataSource {
     }
 
     public static Connection getConnection() throws SQLException {
+        if (dataSource == null) {
+            synchronized (DataSource.class) {
+                if (dataSource == null) {
+                    dataSource = getDataSource();
+                }
+            }
+        }
         return dataSource.getConnection();
     }
 }
